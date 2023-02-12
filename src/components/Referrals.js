@@ -24,7 +24,7 @@ import {printText} from "../devUtilities";
 
 export default function Referrals({userData, userId}) {
 
-    const [referralLink, setReferralLink] = useState("https://cyberbucks.io/?uid=" + userId)
+    const [referralLink, setReferralLink] = useState("https://cyberbucks.github.io/?uid=" + userId)
     const [dataIsFetched, setDataIsFetched] = useState(false)
     const {hasCopied, onCopy} = useClipboard(referralLink)
     const [referralCount, setReferralCount] = useState(0)

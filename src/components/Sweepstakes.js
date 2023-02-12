@@ -26,7 +26,7 @@ import {DateTime} from "luxon";
 
 export default function Sweepstakes({userData, userId}) {
 
-    const [referralLink, setReferralLink] = useState("https://cyberbucks.io/?uid=" + userId)
+    const [referralLink, setReferralLink] = useState("https://cyberbucks.github.io/?uid=" + userId)
     const [dataIsFetched, setDataIsFetched] = useState(false)
     const [productDataFetched, setProductDataFetched] = useState(false)
     const {hasCopied, onCopy} = useClipboard(referralLink)

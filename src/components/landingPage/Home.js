@@ -129,13 +129,7 @@ export default function Home(props) {
     let isMobile = (width <= 768)
 
     if (isLoggedIn) {
-        var headsTails = Math.floor(Math.random() * 2);
-        if(headsTails == 1) {
-          return <Redirect push to="/dashboard"/>
-        } else {
-          return <Redirect push to="/offers"/>
-        }
-
+        return <Redirect push to="/dashboard"/>
     } else {
         return (
             <VFXProvider>
