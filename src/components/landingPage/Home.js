@@ -50,7 +50,7 @@ export default function Home(props) {
     const [isLoggedIn, setLoggedIn] = useState(false)
 
     const [bigPayouts, setBigPayouts] = useState([{"payout":290,"userName":"guangZHOUMYGOD"},{"payout":277,"userName":"mwwking"},{"payout":262,"userName":"Zakgor"},{"payout":208,"userName":"TreeDeS"},{"payout":203,"userName":"callmefit"}])
-    const [latestPayouts, setLatestPayouts] = useState([{"date":DateTime.now().plus({days: 1}).toISODate().toString(),"paymentType":"Wire Transfer","payout":"$200","userName":"atsisibcarupt73"},{"date":"2021-08-31T15:58:36.961+03:00","paymentType":"BTC","payout":"0.00624376","userName":"haloa1"},{"date":"2021-08-31T16:28:36.961+03:00","paymentType":"WebMoney","payout":"$200","userName":"TheRealRove"},{"date":"2021-08-31T14:28:36.961+03:00","paymentType":"WebMoney","payout":"$200","userName":"Redwallzyl"},{"date":"2021-08-31T14:55:36.961+03:00","paymentType":"Wire Transfer","payout":"$100","userName":"Amerdox97"},{"date":"2021-08-31T16:45:36.961+03:00","paymentType":"DOGE","payout":"1065.390093","userName":"PM_ME_MC_LEAKS"},{"date":"2021-08-31T14:58:36.961+03:00","paymentType":"Skrill","payout":"$300","userName":"DangerousBore"},{"date":"2021-08-31T15:45:36.961+03:00","paymentType":"Paypal","payout":"$100","userName":"robertborathean"},{"date":"2021-08-31T16:56:36.961+03:00","paymentType":"Skrill","payout":"$300","userName":"Hylar92"},{"date":"2021-08-31T15:59:36.961+03:00","paymentType":"Payeer","payout":"$300","userName":"Mstam1"}])
+    const [latestPayouts, setLatestPayouts] = useState([{"date":DateTime.now().plus({days: 1}).toISODate().toString(),"paymentType":"Wire Transfer","payout":"⌬200","userName":"atsisibcarupt73"},{"date":"2021-08-31T15:58:36.961+03:00","paymentType":"BTC","payout":"0.00624376","userName":"haloa1"},{"date":"2021-08-31T16:28:36.961+03:00","paymentType":"WebMoney","payout":"⌬200","userName":"TheRealRove"},{"date":"2021-08-31T14:28:36.961+03:00","paymentType":"WebMoney","payout":"⌬200","userName":"Redwallzyl"},{"date":"2021-08-31T14:55:36.961+03:00","paymentType":"Wire Transfer","payout":"⌬100","userName":"Amerdox97"},{"date":"2021-08-31T16:45:36.961+03:00","paymentType":"DOGE","payout":"1065.390093","userName":"PM_ME_MC_LEAKS"},{"date":"2021-08-31T14:58:36.961+03:00","paymentType":"Skrill","payout":"⌬300","userName":"DangerousBore"},{"date":"2021-08-31T15:45:36.961+03:00","paymentType":"Paypal","payout":"⌬100","userName":"robertborathean"},{"date":"2021-08-31T16:56:36.961+03:00","paymentType":"Skrill","payout":"⌬300","userName":"Hylar92"},{"date":"2021-08-31T15:59:36.961+03:00","paymentType":"Payeer","payout":"⌬300","userName":"Mstam1"}])
     const [jackpotData, setJackpotData] = useState({"drawDate": DateTime.now().toISODate(), "entries": 3, "prize": 100})
 
     const decideTrophyIcon = (index) => {
@@ -223,7 +223,7 @@ export default function Home(props) {
                                             textAlign="center"
                                             mb={2}>JACKPOT</Heading>
                                         <Text w="full" fontSize="5xl" align="center"
-                                              color="green">${jackpotData.prize}</Text>
+                                              color="green">⌬{jackpotData.prize}</Text>
                                         <HStack>
                                             <Icon as={AiOutlineClockCircle} color="#ffcd47" w={10} h={10}/>
                                             <Text w="full" fontSize="4xl">
@@ -252,7 +252,7 @@ export default function Home(props) {
                                                 <div>{decideTrophyIcon(index)}</div>
                                                 <Text align="center">{key.userName}</Text>
                                                 <Spacer/>
-                                                <Text mr={5}>${key.payout.toString()}</Text>
+                                                <Text mr={5}>⌬{key.payout.toString()}</Text>
                                             </Flex>
                                         )
                                     })}

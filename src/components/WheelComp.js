@@ -216,7 +216,7 @@ export default function WheelComp({userData, userId}) {
         prizeIsEmpty = true
       } else if (prizeNumberFromComp.type == 1 || prizeNumberFromComp.type == 4 || prizeNumberFromComp.type == 7) {
 
-        postSpinGlitchedMessage = "You earned $" + prizeNumberFromComp.value + "!"
+        postSpinGlitchedMessage = "You earned ⌬" + prizeNumberFromComp.value + "!"
 
       } else if (prizeNumberFromComp.type == 6) {
 
@@ -672,7 +672,7 @@ export default function WheelComp({userData, userId}) {
                                 {!dataIsFetched ? <Center m={4}>
                                         <CircularProgress isIndeterminate color="white" size="50px" trackColor="brand.sky"/></Center>
                                     :
-                                    <Text fontSize="3xl">${myCash}</Text>}
+                                    <Text fontSize="3xl">⌬{myCash}</Text>}
                             </Button>
                         </Link>
                     </Flex>
@@ -1054,7 +1054,7 @@ export default function WheelComp({userData, userId}) {
                                           <Tr textAlign="center">
                                               <Td fontSize={["lg", "3xl"]} textAlign="center">{myUserData.tickets} <Icon
                                                   as={ImTicket} mr={3} pb={1}/></Td>
-                                              <Td fontSize={["lg", "3xl"]} textAlign="center">${jackpotData.prize}</Td>
+                                              <Td fontSize={["lg", "3xl"]} textAlign="center">⌬{jackpotData.prize}</Td>
                                               <Td fontSize={["lg", "3xl"]} textAlign="center"><Icon as={AiOutlineClockCircle}
                                                                                                     mr={3} pb={1}/><Countdown
                                                   date={DateTime.fromISO(jackpotData.drawDate)}

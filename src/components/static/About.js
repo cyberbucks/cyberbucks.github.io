@@ -35,7 +35,7 @@ export default function About() {
                     <Center><Box width="80%" background="#6c757d" mt={5} p={5} borderRadius="5px"><Text
                         textAlign="center" fontSize="lg">Default wheel of fortune payouts</Text></Box></Center>
                     <Center><Box width="80%" background="#343a40" p={5}><Text fontSize="lg">Cash: Win cash with a random
-                        amount from $0.01 up to $10.00.</Text></Box></Center>
+                        amount from ⌬0.01 up to ⌬10.00.</Text></Box></Center>
                     <Center><Box width="80%" background="#343a40" p={5}><Text fontSize="lg">Token: Win tokens with a
                         random amount from 1 to 100 tokens.</Text></Box></Center>
                     <Center><Box width="80%" background="#343a40" p={5}><Text fontSize="lg">Ticket: Win 1 entry to the

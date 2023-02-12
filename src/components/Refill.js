@@ -207,15 +207,15 @@ export default function Refill({userData, userId}) {
                                 </Thead>
                                 <Tbody>
                                     <Tr>
-                                        <Td fontSize="lg">up to $20</Td>
+                                        <Td fontSize="lg">up to ⌬20</Td>
                                         <Td fontSize="xl"><Icon as={SiJsonwebtokens} w={4} h={4} pb={1}/> 25</Td>
                                     </Tr>
                                     <Tr>
-                                        <Td fontSize="xl">up to $50</Td>
+                                        <Td fontSize="xl">up to ⌬50</Td>
                                         <Td fontSize="xl"><Icon as={SiJsonwebtokens} w={4} h={4} pb={1}/> 20</Td>
                                     </Tr>
                                     <Tr>
-                                        <Td fontSize="xl">more than $50</Td>
+                                        <Td fontSize="xl">more than ⌬50</Td>
                                         <Td fontSize="xl"><Icon as={SiJsonwebtokens} w={4} h={4} pb={1}/> 15</Td>
                                     </Tr>
                                 </Tbody>

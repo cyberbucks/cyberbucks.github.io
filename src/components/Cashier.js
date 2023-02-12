@@ -138,7 +138,7 @@ export default function Cashier({userData, userId}) {
                             <Heading textAlign="center"><Icon as={BiDownArrow} mr={10} pb={1} w={10}
                                                               h={10}/>BALANCE<Icon
                                 as={BiDownArrow} ml={10} pb={1} w={10} h={10}/></Heading>
-                            <Heading textAlign="center" mb={1}>${userData.balance}</Heading>
+                            <Heading textAlign="center" mb={1}>⌬{userData.balance}</Heading>
                             {isMobile ? <Image w={400} mt={5} mb={3} src="/assets/cyberwoman.png"
                                                alt="CYBERBUCKS"/> :
                                 <Box mt={5} mb={3}>
@@ -149,13 +149,13 @@ export default function Cashier({userData, userId}) {
                                 <Flex direction="row">
                                     <Spacer/>
                                     <Radio value={100} _checked={{bg: "white", borderColor: "white"}}><Text
-                                        fontSize="2xl">$100</Text></Radio>
+                                        fontSize="2xl">⌬100</Text></Radio>
                                     <Spacer/>
                                     <Radio value={200} _checked={{bg: "white", borderColor: "white"}}><Text
-                                        fontSize="2xl">$200</Text></Radio>
+                                        fontSize="2xl">⌬200</Text></Radio>
                                     <Spacer/>
                                     <Radio value={300} _checked={{bg: "white", borderColor: "white"}}><Text
-                                        fontSize="2xl">$300</Text></Radio>
+                                        fontSize="2xl">⌬300</Text></Radio>
                                     <Spacer/>
                                 </Flex>
                             </RadioGroup>

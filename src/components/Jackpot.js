@@ -103,7 +103,7 @@ export default function Jackpot({userData, isForDashboard}) { //a smaller portio
                                     <Tr textAlign="center">
                                         <Td fontSize={["lg", "3xl"]} textAlign="center">{myUserData.tickets} <Icon
                                             as={ImTicket} mr={3} pb={1}/></Td>
-                                        <Td fontSize={["lg", "3xl"]} textAlign="center">${jackpotData.prize}</Td>
+                                        <Td fontSize={["lg", "3xl"]} textAlign="center">⌬{jackpotData.prize}</Td>
                                         <Td fontSize={["lg", "3xl"]} textAlign="center"><Icon as={AiOutlineClockCircle}
                                                                                               mr={3} pb={1}/><Countdown
                                             date={DateTime.fromISO(jackpotData.drawDate)}
@@ -156,7 +156,7 @@ export default function Jackpot({userData, isForDashboard}) { //a smaller portio
                                                         <Spacer/>
                                                         {/*<Text fontSize="lg">{timeAgo(jackpot.date)}</Text>*/}
                                                         {/*<Spacer/>*/}
-                                                        <Text fontSize="lg">Prize: ${jackpot.prize}</Text>
+                                                        <Text fontSize="lg">Prize: ⌬{jackpot.prize}</Text>
                                                     </Flex>
                                                 </Box>
                                             )}

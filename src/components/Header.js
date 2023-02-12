@@ -390,7 +390,7 @@ export default function Header({uid, userData}) {
                                 // className="neonRightTopBox"
                                     borderTop="4px solid white" borderRight="4px solid white"
                                     border="transparent">
-                                <Text fontSize="3xl">${myCash}</Text>
+                                <Text fontSize="3xl">⌬{myCash}</Text>
                             </Button>
 
                         </Link>

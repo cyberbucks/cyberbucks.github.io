@@ -246,7 +246,7 @@ export default function AddLink({userId}) {
                     {/*<Checkbox fontSize="xl" mt={5}>Add Premium package?</Checkbox>*/}
 
                     <Text fontSize="xl" mt={10}>Total
-                        Price: ${35 + (visitTime * 0.5) + (visitGoal * 0.05)}</Text> {/*todo: price will be determined dynamically*/}
+                        Price: ⌬{35 + (visitTime * 0.5) + (visitGoal * 0.05)}</Text> {/*todo: price will be determined dynamically*/}
 
                     <Button onClick={submitLink} py={4} px={8} mx={5} mt={5} variant="outline" bg="transparent"
                             leftIcon={<ImCodepen/>} isFullWidth
