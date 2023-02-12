@@ -493,18 +493,17 @@ export default function WheelComp({userData, userId}) {
                                 WHEEL
                             </Button>
                         </Link>
-                        <Link as={ReactLink} to="/offers" marginLeft={[0, 0, 0, "3%"]} my={[2, 3, 3, 0]}>
-                            <Button leftIcon={<MdLocalOffer/>} px={8} borderRadius="20px" bg="brand.dark"
-                                    boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                    color="yellow" variant="outline"
-                                    className="neonBlueHeader"
-                                    _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                    _active={{transform: "scale(0.98)"}}
-                                    _focus={{}}>
-                                OFFERS <Icon as={WiMoonAltNew} className="blinkingBox" ml={1} color="red"/>
-                            </Button>
-                        </Link>
-
+                        {/*<Link as={ReactLink} to="/offers" marginLeft={[0, 0, 0, "3%"]} my={[2, 3, 3, 0]}>*/}
+                        {/*    <Button leftIcon={<MdLocalOffer/>} px={8} borderRadius="20px" bg="brand.dark"*/}
+                        {/*            boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"*/}
+                        {/*            color="yellow" variant="outline"*/}
+                        {/*            className="neonBlueHeader"*/}
+                        {/*            _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}*/}
+                        {/*            _active={{transform: "scale(0.98)"}}*/}
+                        {/*            _focus={{}}>*/}
+                        {/*        OFFERS <Icon as={WiMoonAltNew} className="blinkingBox" ml={1} color="red"/>*/}
+                        {/*    </Button>*/}
+                        {/*</Link>*/}
                         <Link as={ReactLink} to="/referral" marginLeft={[0, 0, 0, "3%"]} my={[2, 3, 3, 0]}>
                             <Button leftIcon={<FaUserPlus/>} px={8} borderRadius="0px" bg="brand.dark"
                                     boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
