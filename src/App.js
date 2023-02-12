@@ -1,6 +1,6 @@
 import './styles/App.css';
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Route, Switch, useLocation} from "react-router-dom";
+import {HashRouter as Router, Route, Switch, useLocation} from "react-router-dom";
 import {firebaseApp, getUserData, getUserDatabaseRef, runLoginRoutine, setUserPush} from "./firebaseUtilities";
 
 import WheelComp from './components/WheelComp';
