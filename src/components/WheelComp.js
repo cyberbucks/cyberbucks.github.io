@@ -339,24 +339,6 @@ export default function WheelComp({userData, userId}) {
         })
       }
 
-      const fetchForSweepstake = () => {
-
-        getMockupAdData().then((data) => {
-
-          var tempTopBanner = {
-            src: data.sweepstake.bannerImg,
-            href: "hrefIsAbsolute"
-          }
-
-          setTopBannerSrc(tempTopBanner)
-
-
-        }).catch((err) => {
-            window.location.reload()
-        })
-
-      }
-
       const fetchMockupAdSources = () => {
 
         getMockupAdData().then((data) => {
@@ -377,16 +359,11 @@ export default function WheelComp({userData, userId}) {
             localToastAds.push(val)
           })
 
-
-
-
-          var shuffledTopBanners = [...localTopBanners].sort(() => 0.5 - Math.random())
           var shuffledBottomBanners = [...localBottomBanners].sort(() => 0.5 - Math.random())
           var shuffledToastAds = [...localToastAds].sort(() => 0.5 - Math.random())
 
           var bottomBannersToBeUsed = shuffledBottomBanners.slice(0, 4)
 
-          if(shuffledTopBanners.length > 0) setTopBannerSrc(shuffledTopBanners[0])
           if(bottomBannersToBeUsed != undefined) setBottomBannersSrcs(bottomBannersToBeUsed)
           if(shuffledToastAds.length > 0) setToastAd(shuffledToastAds[0])
 
