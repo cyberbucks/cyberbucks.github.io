@@ -12,13 +12,12 @@ import {
     FormLabel,
     Heading,
     Icon,
-    Input, Link,
+    Input,
     SlideFade,
-    Spacer,
-    Text
+    Spacer
 } from "@chakra-ui/react";
 import {BiDownArrow, ImCodepen} from "react-icons/all";
-import {CheckIcon, CloseIcon, ViewIcon, ViewOffIcon} from "@chakra-ui/icons";
+import {ViewIcon, ViewOffIcon} from "@chakra-ui/icons";
 import {firebaseApp} from "../firebaseUtilities";
 import firebase from "firebase";
 import {printText} from "../devUtilities";
@@ -108,17 +107,17 @@ export default function Profile(userData) {
                 <Box mx={10}>
                     <Heading textAlign="center"><Icon as={BiDownArrow} mr={10} pb={1} w={10} h={10}/>PROFILE<Icon
                         as={BiDownArrow} ml={10} pb={1} w={10} h={10}/></Heading>
-                    {!firebaseApp.auth().currentUser.emailVerified &&
-                    <Box>
-                        <Alert status={emailMessageType} color="white" bg="brand.orange" fontSize="lg"
-                               alignItems="center" justifyContent="center">
-                            <AlertIcon color="white"/>
-                            {message === "" ? <Text>You have not verified your email yet.
-                                <Link onClick={sendEmail}> Click here to send verification email.
-                                </Link></Text> : <Text>{emailMessage}</Text>}
-                        </Alert>
-                    </Box>
-                    }
+                    {/*{!firebaseApp.auth().currentUser.emailVerified &&*/}
+                    {/*<Box>*/}
+                    {/*    <Alert status={emailMessageType} color="white" bg="brand.orange" fontSize="lg"*/}
+                    {/*           alignItems="center" justifyContent="center">*/}
+                    {/*        <AlertIcon color="white"/>*/}
+                    {/*        {message === "" ? <Text>You have not verified your email yet.*/}
+                    {/*            <Link onClick={sendEmail}> Click here to send verification email.*/}
+                    {/*            </Link></Text> : <Text>{emailMessage}</Text>}*/}
+                    {/*    </Alert>*/}
+                    {/*</Box>*/}
+                    {/*}*/}
                     <Container maxW="80rem" centerContent mt={3}>
                         <Flex direction="row" width="100%">
                             <FormControl id="email" w="100%" color="white" isRequired>
@@ -133,12 +132,12 @@ export default function Profile(userData) {
                                 <FormHelperText color="white" fontSize="md">Mark emails from us as important and never
                                     miss an event.</FormHelperText>
                             </FormControl>
-                            <Spacer/>
-                            {userData.userData.emailVerified ?
-                                <Center w="20rem"><CheckIcon w={8} h={8} color="green.500" mt={0.8}/><Text
-                                    fontSize="lg" ml={5}>EMAIL VERIFIED</Text></Center> :
-                                <Center w="20rem"><CloseIcon w={7} h={7} color="red.500" mt={1} ml={5}/><Text
-                                    fontSize="lg" ml={5}>EMAIL NOT VERIFIED</Text></Center>}
+                            {/*<Spacer/>*/}
+                            {/*{userData.userData.emailVerified ?*/}
+                            {/*    <Center w="20rem"><CheckIcon w={8} h={8} color="green.500" mt={0.8}/><Text*/}
+                            {/*        fontSize="lg" ml={5}>EMAIL VERIFIED</Text></Center> :*/}
+                            {/*    <Center w="20rem"><CloseIcon w={7} h={7} color="red.500" mt={1} ml={5}/><Text*/}
+                            {/*        fontSize="lg" ml={5}>EMAIL NOT VERIFIED</Text></Center>}*/}
                         </Flex>
                         <Flex direction="row" width="100%" mb={10}>
                             <FormControl id="password" w="100%" color="white" isRequired mt={3}>

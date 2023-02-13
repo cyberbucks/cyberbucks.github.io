@@ -1,6 +1,6 @@
 import './styles/App.css';
 import React, {useEffect, useState} from 'react';
-import {HashRouter as Router, Route, Switch, useLocation} from "react-router-dom";
+import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import {firebaseApp, getUserData, getUserDatabaseRef, runLoginRoutine, setUserPush} from "./firebaseUtilities";
 
 import WheelComp from './components/WheelComp';
@@ -26,23 +26,22 @@ import Referrals from "./components/Referrals";
 import AdminPanel from "./components/adminPanel/AdminPanel";
 import {
     Box,
-    Button,
     Center,
     CircularProgress,
     CircularProgressLabel,
-    Container,
     Flex,
+    Icon,
     Spacer,
     Text,
     useToast
 } from "@chakra-ui/react";
 import NotFound from "./components/static/NotFound";
 import {printText} from "./devUtilities";
-import {CheckIcon, CloseIcon} from "@chakra-ui/icons";
 import CookieConsent from "react-cookie-consent";
 import FAuth from "./components/FAuth";
 import Sweepstakes from "./components/Sweepstakes";
 import SocialMediaEvent from "./components/SocialMediaEvent";
+import {AiFillWarning} from "react-icons/all";
 
 
 //We fetch the user's own data from this parent component, child components fetch any data they specifically need other than that
@@ -116,7 +115,7 @@ function App() {
                 // updateLastOnline(uid)
                 // fetch("/updateUserObject", {headers: {code: uid}}).then(r => {
                 //     printText("App.js: updateUserObject reponse: " + r.json().status)
-                    runLoginRoutine(uid, user.emailVerified)
+                runLoginRoutine(uid, user.emailVerified)
                 // })
                 getUserData(uid).then((data) => {
                     setMyUserData(data)
@@ -180,7 +179,13 @@ function App() {
             minHeight: "100%",
         }}>
             <Flex direction="column" justifyContent="space-between">
-
+                <Box borderColor="brand.blue1" borderWidth="2px"><Center my={2}><Icon as={AiFillWarning}
+                                                                                      color="brand.purple" size={30}
+                                                                                      className="blinkingBox"/><Text
+                    fontSize="xl"
+                    textAlign="center" mx={1}>Please note that this website is a game and you cannot earn real
+                    money.</Text><Icon as={AiFillWarning} color="brand.purple" size={30}
+                                       className="blinkingBox"/></Center></Box>
                 {!dataIsFetched ? <Box style={{display: "flex", justifyContent: "center", height: "100%"}}>
                         <Flex direction="column">
                             <Spacer/>
@@ -409,8 +414,8 @@ function App() {
                 }
                 <Spacer/>
             </Flex>
-            <CookieConsent style={{ background: "#0F0422", boxShadow: "0 0 20px rgba(15, 155, 242, 1.0)"}}
-                           buttonStyle={{ fontWeight: "bold", background: "#FFC233" }}>
+            <CookieConsent style={{background: "#0F0422", boxShadow: "0 0 20px rgba(15, 155, 242, 1.0)"}}
+                           buttonStyle={{fontWeight: "bold", background: "#FFC233"}}>
                 We use cookies to enhance your user experience and provide you better functionality.{" "}
             </CookieConsent>
 

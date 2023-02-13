@@ -8,7 +8,8 @@ import {
     Container,
     Heading,
     HStack,
-    Icon, Image,
+    Icon,
+    Image,
     SimpleGrid,
     SlideFade,
     Text
@@ -93,14 +94,13 @@ export default function Crew({userData, userId}) {
                                                                                                      pb={1} w={10}
                                                                                                      h={10}/></Heading>
                         <Text fontSize="xl" my={2}>Get tokens for each verified partner.</Text>
-                        <Text fontSize="xl" mt={1} mb={5}>Get a token every 24 hours as long as they confirm email and
-                            stay
+                        <Text fontSize="xl" mt={1} mb={5}>Get a token every 24 hours as long as they stay
                             active!</Text>
                         {/*<Img width="400px" src="/assets/woman-6175236.png"/>*/}
                         {isMobile ? <Image w={400} mt={5} mb={3} src="/assets/crewphoto.png"
-                                                     alt="CYBERBUCKS"/> :
+                                           alt="CYBERBUCKS"/> :
                             <Box mt={5} mb={3}>
-                        <VFXImg width="400px" src="/assets/crewphoto.png" shader="rgbGlitch"/></Box>}
+                                <VFXImg width="400px" src="/assets/crewphoto.png" shader="rgbGlitch"/></Box>}
                     </Container>
                 </SlideFade>
 

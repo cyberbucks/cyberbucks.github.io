@@ -16,16 +16,10 @@ import {
     RadioGroup,
     SlideFade,
     Spacer,
-    Text, Tooltip
+    Text,
+    Tooltip
 } from "@chakra-ui/react"
-import {
-    AiFillBank,
-    BiDownArrow, FaBitcoin,
-    GrPaypal,
-    IoQrCodeSharp,
-    IoShieldCheckmarkOutline,
-    RiTrademarkLine, SiEthereum
-} from "react-icons/all";
+import {AiFillBank, BiDownArrow, FaBitcoin, GrPaypal, IoQrCodeSharp, SiEthereum} from "react-icons/all";
 import WAValidator from "@swyftx/api-crypto-address-validator";
 import {VFXImg, VFXProvider} from "react-vfx";
 import {printText} from "../devUtilities";
@@ -69,7 +63,7 @@ export default function Cashier({userData, userId}) {
 
     const requestButton = () => {
         setChangesLoading(true)
-        if(userData.balance < cashAmount || userData.balance < 100) {
+        if (userData.balance < cashAmount || userData.balance < 100) {
             setChangesLoading(false)
             setMessage("Insufficient funds")
             setMessageShown(true)
@@ -183,18 +177,26 @@ export default function Cashier({userData, userId}) {
                                     <Radio value="paypal" _checked={{bg: "white", borderColor: "white"}}
                                            _disabled={{bg: "transparent", borderColor: "red"}}
                                            isDisabled={userData.balance > 99}>
-                                        {userData.balance > 99 ? <Tooltip hasArrow label="Temporarily unavailable" fontSize="xl" bg="red.600"><Center><Icon as={GrPaypal} color="white" boxSize="2em" mr={2}/><Text
-                                        fontSize="2xl" ml={1}>Paypal</Text></Center></Tooltip>
-                                            : <Center><Icon as={GrPaypal} color="white" boxSize="2em" mr={2}/><Text fontSize="2xl" ml={1}>Paypal</Text></Center>}
-                                        </Radio>
+                                        {userData.balance > 99 ?
+                                            <Tooltip hasArrow label="Temporarily unavailable" fontSize="xl"
+                                                     bg="red.600"><Center><Icon as={GrPaypal} color="white"
+                                                                                boxSize="2em" mr={2}/><Text
+                                                fontSize="2xl" ml={1}>Paypal</Text></Center></Tooltip>
+                                            : <Center><Icon as={GrPaypal} color="white" boxSize="2em" mr={2}/><Text
+                                                fontSize="2xl" ml={1}>Paypal</Text></Center>}
+                                    </Radio>
 
                                     <Spacer/>
                                     <Radio value="wire" _checked={{bg: "white", borderColor: "white"}}
                                            _disabled={{bg: "transparent", borderColor: "red"}}
                                            isDisabled={userData.balance > 99}>
-                                        {userData.balance > 99 ? <Tooltip hasArrow label="Not available in your country" fontSize="xl" bg="red.600"><Center><Icon as={AiFillBank} color="white" boxSize="2.1em" mr={2}/><Text
-                                        fontSize="2xl" ml={1}>Wire Transfer</Text></Center></Tooltip>
-                                            : <Center><Icon as={AiFillBank} color="white" boxSize="2.1em" mr={2}/><Text fontSize="2xl" ml={1}>Wire Transfer</Text></Center>}
+                                        {userData.balance > 99 ?
+                                            <Tooltip hasArrow label="Not available in your country" fontSize="xl"
+                                                     bg="red.600"><Center><Icon as={AiFillBank} color="white"
+                                                                                boxSize="2.1em" mr={2}/><Text
+                                                fontSize="2xl" ml={1}>Wire Transfer</Text></Center></Tooltip>
+                                            : <Center><Icon as={AiFillBank} color="white" boxSize="2.1em" mr={2}/><Text
+                                                fontSize="2xl" ml={1}>Wire Transfer</Text></Center>}
                                     </Radio>
                                     <Spacer/>
                                 </Flex>
@@ -216,7 +218,7 @@ export default function Cashier({userData, userId}) {
                         <Button onClick={requestButton} py={4} mt={4} variant="outline" bg="transparent"
                                 leftIcon={<IoQrCodeSharp/>} isFullWidth
                                 borderRadius="0px"
-                                isLoading={changesLoading} isDisabled={changesLoaded}
+                                isLoading={changesLoading} isDisabled
                                 _hover={{color: "brand.purple", borderColor: "brand.purple"}}
                                 _active={{transform: "scale(0.98)"}}
                                 size="lg">Request</Button>
@@ -228,13 +230,6 @@ export default function Cashier({userData, userId}) {
                                 {message}
                             </Alert>
                         </SlideFade>
-                        <Text textAlign="center" my={3}>Payouts take additional time to be manually reviewed and
-                            processed
-                            when
-                            you make a request for the first time.</Text>
-                        <Center mt={2}><Icon as={IoShieldCheckmarkOutline}/><Text ml={1}>Processed and secured by Reline
-                            Payments</Text><Icon as={RiTrademarkLine}/></Center>
-
                     </Box>
                 </SlideFade>
             </Box>

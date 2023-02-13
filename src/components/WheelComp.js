@@ -1,30 +1,29 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Wheel} from 'react-custom-roulette';
-import { useDencrypt } from "use-dencrypt-effect";
-import { ToastContainer, toast } from 'react-toastify';
+import {useDencrypt} from "use-dencrypt-effect";
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
-
 import {
-    addJackpotEntry,
     authLogout,
     firebaseApp,
-    getUserData,
-    initiateRaffle,
-    setUserAdblock,
     getJackpotData,
-    getMockupAdData
+    getMockupAdData,
+    getUserData,
+    setUserAdblock
 } from "../firebaseUtilities";
 import {
-    Alert, AlertIcon,
+    Alert,
+    AlertIcon,
     Box,
     Button,
     Center,
     CircularProgress,
     Container,
     Flex,
+    Heading,
+    Icon,
     IconButton,
     Image,
     Link,
@@ -37,49 +36,44 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
-    Spacer,
-    Text,
-    useDisclosure,
-    Heading,
-    Icon,
     SlideFade,
+    Spacer,
     Table,
     Tbody,
     Td,
+    Text,
     Th,
     Thead,
-    Tr
+    Tr,
+    useDisclosure
 } from "@chakra-ui/react"
 import {HamburgerIcon} from '@chakra-ui/icons'
 import {Link as ReactLink, useHistory} from "react-router-dom";
-import Jackpot from './Jackpot';
 
 import RefillTimer from './RefillTimer';
 import {useDetectAdBlock} from "adblock-detect-react";
 import {
     AiOutlineClockCircle,
     BiDownArrow,
-    GiAbstract102,
     BiSupport,
     FaUserAlt,
     FaUserPlus,
     FaUsers,
     FiExternalLink,
+    GiAbstract102,
     GiCarWheel,
+    GiSpeaker,
+    GiSpeakerOff,
     ImSpinner9,
     ImTicket,
     MdCreditCard,
     RiLogoutBoxFill,
     RiSafeFill,
-    SiJsonwebtokens,
-    GiSpeaker,
-    GiSpeakerOff,
-    MdLocalOffer, WiMoonAltNew
+    SiJsonwebtokens
 } from "react-icons/all";
 import {printText} from "../devUtilities";
 import preval from "preval.macro";
 import '../styles/solarFlare.css';
-import {VFXImg, VFXProvider} from "react-vfx";
 import {DateTime} from "luxon";
 import Countdown from "react-countdown";
 import useSound from 'use-sound';
@@ -87,25 +81,23 @@ import useSound from 'use-sound';
 import glitchSound from '../styles/sounds/glitchEffect.mp3';
 
 
-
 const data = [
-  { option: 'Empty', style: { textColor: '#A22F2F'}},
-  { option: 'Cash' , style: { textColor: '#55A726'}},
-  { option: 'Token' , style: { textColor: '#F8D62F'}},
-  { option: 'Empty', style: { textColor: '#A22F2F'}},
-  { option: 'Cash' , style: { textColor: '#55A726'}},
-  { option: 'Empty', style: { textColor: '#A22F2F'}},
-  { option: 'Ticket', style: { textColor: '#D22576'}},
-  { option: 'Cash' , style: { textColor: '#55A726'}},
-  { option: 'Empty', style: { textColor: '#A22F2F'}},
-  { option: 'Token' , style: { textColor: '#F8D62F'}},
-  { option: 'Glitch' , style: { textColor: '#9031A4'}},
+    {option: 'Empty', style: {textColor: '#A22F2F'}},
+    {option: 'Cash', style: {textColor: '#55A726'}},
+    {option: 'Token', style: {textColor: '#F8D62F'}},
+    {option: 'Empty', style: {textColor: '#A22F2F'}},
+    {option: 'Cash', style: {textColor: '#55A726'}},
+    {option: 'Empty', style: {textColor: '#A22F2F'}},
+    {option: 'Ticket', style: {textColor: '#D22576'}},
+    {option: 'Cash', style: {textColor: '#55A726'}},
+    {option: 'Empty', style: {textColor: '#A22F2F'}},
+    {option: 'Token', style: {textColor: '#F8D62F'}},
+    {option: 'Glitch', style: {textColor: '#9031A4'}},
 ];
 
 
-
 const options = {
-interval: 1
+    interval: 1
 }
 
 var localToastAds = []
@@ -123,7 +115,7 @@ const fontSize = 25;
 const textDistance = 60;
 
 let postSpinModalMessage = (
-  <h1>Message Template</h1>
+    <h1>Message Template</h1>
 )
 
 let postSpinGlitchedMessage = "Glitch Example"
@@ -155,7 +147,7 @@ export default function WheelComp({userData, userId}) {
     const [prizeNumberFromComp, setPrizeNumberFromComp] = useState({value: 0, type: 0})
 
     const sendPrizeNumberToParent = (prizeNum) => {
-      setPrizeNumberFromComp(prizeNum)
+        setPrizeNumberFromComp(prizeNum)
     }
     const [initialFetchHappened, setInitialFetchHappened] = useState(false)
     const [myUserData, setMyUserData] = useState({})
@@ -163,34 +155,31 @@ export default function WheelComp({userData, userId}) {
 
     const [playGlitch] = useSound(glitchSound)
 
-    const { result, dencrypt } = useDencrypt(options)
+    const {result, dencrypt} = useDencrypt(options)
 
     const [bottomBannersSrcs, setBottomBannersSrcs] = useState([{
-      href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
-      src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+        href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
+        src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
     },
-    {
-      href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
-      src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
-    },
-    {
-      href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
-      src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
-    },
-    {
-      href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
-      src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
-    }])
+        {
+            href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
+            src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+        },
+        {
+            href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
+            src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+        },
+        {
+            href: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif",
+            src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif"
+        }])
 
     const [toastAd, setToastAd] = useState({
-      text: "Do this and earn EASY $100!",
-      href: "http://fumacrom.com/2962T"
+        text: "Do this and earn EASY $100!",
+        href: "http://fumacrom.com/2962T"
     })
 
     const [speakerOn, setSpeakerOn] = useState(true)
-
-
-
 
 
     // This block is also present in Header.js
@@ -205,70 +194,68 @@ export default function WheelComp({userData, userId}) {
 
     useEffect(() => {
 
-      handleGlitchChange("Reset")
+        handleGlitchChange("Reset")
 
-      prizeIsEmpty = false
+        prizeIsEmpty = false
 
-      if(prizeNumberFromComp.type == 0 || prizeNumberFromComp.type == 3 || prizeNumberFromComp.type == 5 || prizeNumberFromComp.type == 8) {
+        if (prizeNumberFromComp.type == 0 || prizeNumberFromComp.type == 3 || prizeNumberFromComp.type == 5 || prizeNumberFromComp.type == 8) {
 
-        postSpinGlitchedMessage = "Sorry, you couldn't earn anything."
+            postSpinGlitchedMessage = "Sorry, you couldn't earn anything."
 
-        prizeIsEmpty = true
-      } else if (prizeNumberFromComp.type == 1 || prizeNumberFromComp.type == 4 || prizeNumberFromComp.type == 7) {
+            prizeIsEmpty = true
+        } else if (prizeNumberFromComp.type == 1 || prizeNumberFromComp.type == 4 || prizeNumberFromComp.type == 7) {
 
-        postSpinGlitchedMessage = "You earned ⌬" + prizeNumberFromComp.value + "!"
+            postSpinGlitchedMessage = "You earned ⌬" + prizeNumberFromComp.value + "!"
 
-      } else if (prizeNumberFromComp.type == 6) {
+        } else if (prizeNumberFromComp.type == 6) {
 
-        postSpinGlitchedMessage = "You earned a ticket!"
+            postSpinGlitchedMessage = "You earned a ticket!"
 
-      } else if (prizeNumberFromComp.type == 10 && prizeNumberFromComp.value == 999) {
+        } else if (prizeNumberFromComp.type == 10 && prizeNumberFromComp.value == 999) {
 
-        postSpinGlitchedMessage = "You've earned 1000 tickets!"
+            postSpinGlitchedMessage = "You've earned 1000 tickets!"
 
-      } else if (prizeNumberFromComp.type == 10) {
+        } else if (prizeNumberFromComp.type == 10) {
 
-        postSpinGlitchedMessage = "You've found a joker! Find three jokers in a row and earn 1000 tickets."
+            postSpinGlitchedMessage = "You've found a joker! Find three jokers in a row and earn 1000 tickets."
 
-      } else if (prizeNumberFromComp.type == 2 || prizeNumberFromComp.type == 9) {
+        } else if (prizeNumberFromComp.type == 2 || prizeNumberFromComp.type == 9) {
 
-        postSpinGlitchedMessage = "You earned " + prizeNumberFromComp.value + " tokens!"
+            postSpinGlitchedMessage = "You earned " + prizeNumberFromComp.value + " tokens!"
 
-      } else if (prizeNumberFromComp.type == -1 && prizeNumberFromComp.value == -1) {
+        } else if (prizeNumberFromComp.type == -1 && prizeNumberFromComp.value == -1) {
 
-        postSpinGlitchedMessage = "There was a problem with the server."
+            postSpinGlitchedMessage = "There was a problem with the server."
 
 
-      } else if (prizeNumberFromComp.type == -2) {
+        } else if (prizeNumberFromComp.type == -2) {
 
-        postSpinGlitchedMessage = "An error has occurred. Try refreshing the page and spinning again."
+            postSpinGlitchedMessage = "An error has occurred. Try refreshing the page and spinning again."
 
-      } else if (prizeNumberFromComp.type == -3) {
+        } else if (prizeNumberFromComp.type == -3) {
 
-        postSpinGlitchedMessage = "You can't spin more than one wheel at a time."
+            postSpinGlitchedMessage = "You can't spin more than one wheel at a time."
 
-      }
+        }
 
-      options.interval = 280 / postSpinGlitchedMessage.length
-
+        options.interval = 280 / postSpinGlitchedMessage.length
 
 
     }, [prizeNumberFromComp]);
 
 
-
     useEffect(() => {
 
-        if(!initialFetchHappened) {
+        if (!initialFetchHappened) {
 
-          // fetchMockupAdSources()
-          updateCashAndCoin()
-          fetchJackpotAndUserData()
+            // fetchMockupAdSources()
+            updateCashAndCoin()
+            fetchJackpotAndUserData()
 
-          setInitialFetchHappened(true)
+            setInitialFetchHappened(true)
 
-          setUserAdblock(userId, adBlockDetected)
-          printText("adblock detected? : " + adBlockDetected)
+            setUserAdblock(userId, adBlockDetected)
+            printText("adblock detected? : " + adBlockDetected)
         }
 
 
@@ -281,9 +268,6 @@ export default function WheelComp({userData, userId}) {
         })
 
     }, [userData, userId]);
-
-
-
 
 
     // useEffect(() => {
@@ -310,7 +294,7 @@ export default function WheelComp({userData, userId}) {
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
-    },[isScriptsAdded])
+    }, [isScriptsAdded])
 
     let isMobile = (width <= 768)
 
@@ -325,7 +309,7 @@ export default function WheelComp({userData, userId}) {
             setMyCash(parseFloat(tempUserData.balance.toFixed(2)))
             setMyGold(tempUserData.coins)
             setMyUserData(tempUserData)
-            if(tempUserData.hasOwnProperty("accountMessage")) {
+            if (tempUserData.hasOwnProperty("accountMessage")) {
                 setShowAccountMessage(tempUserData.accountMessage !== 0 && tempUserData.accountMessage !== "none")
             }
             setDataIsFetched(true)
@@ -337,35 +321,35 @@ export default function WheelComp({userData, userId}) {
         getJackpotData().then((data) => {
             setJackpotData(data)
         })
-      }
+    }
 
-      const fetchMockupAdSources = () => {
+    const fetchMockupAdSources = () => {
 
         getMockupAdData().then((data) => {
 
-          var localTopBanners = []
-          var localBottomBanners = []
+            var localTopBanners = []
+            var localBottomBanners = []
 
 
-          Object.values(data.topBanners).forEach(val => {
-            localTopBanners.push(val)
-          })
+            Object.values(data.topBanners).forEach(val => {
+                localTopBanners.push(val)
+            })
 
-          Object.values(data.bottomBoxes).forEach(val => {
-            localBottomBanners.push(val)
-          })
+            Object.values(data.bottomBoxes).forEach(val => {
+                localBottomBanners.push(val)
+            })
 
-          Object.values(data.toastAds).forEach(val => {
-            localToastAds.push(val)
-          })
+            Object.values(data.toastAds).forEach(val => {
+                localToastAds.push(val)
+            })
 
-          var shuffledBottomBanners = [...localBottomBanners].sort(() => 0.5 - Math.random())
-          var shuffledToastAds = [...localToastAds].sort(() => 0.5 - Math.random())
+            var shuffledBottomBanners = [...localBottomBanners].sort(() => 0.5 - Math.random())
+            var shuffledToastAds = [...localToastAds].sort(() => 0.5 - Math.random())
 
-          var bottomBannersToBeUsed = shuffledBottomBanners.slice(0, 4)
+            var bottomBannersToBeUsed = shuffledBottomBanners.slice(0, 4)
 
-          if(bottomBannersToBeUsed != undefined) setBottomBannersSrcs(bottomBannersToBeUsed)
-          if(shuffledToastAds.length > 0) setToastAd(shuffledToastAds[0])
+            if (bottomBannersToBeUsed != undefined) setBottomBannersSrcs(bottomBannersToBeUsed)
+            if (shuffledToastAds.length > 0) setToastAd(shuffledToastAds[0])
 
 
         }).catch((err) => {
@@ -373,7 +357,7 @@ export default function WheelComp({userData, userId}) {
         })
 
 
-      }
+    }
 
 
     const [message, setMessage] = useState("")
@@ -381,18 +365,13 @@ export default function WheelComp({userData, userId}) {
 
     const sendEmail = () => {
         firebaseApp.auth().currentUser.sendEmailVerification().then(() => {
-           setMessageType("info")
+            setMessageType("info")
             setMessage("Verification email sent.")
         })
     }
 
 
-
-
-
     const spinTheWheel = () => {
-
-
 
 
         // setAnimationTrigger(++animationTrigger)
@@ -400,49 +379,47 @@ export default function WheelComp({userData, userId}) {
         //Backend no longer accepts uid query, URLSearchParams can be deleted later
         if (myGold > 0) {
 
-                    setMustSpin(true)
+            setMustSpin(true)
 
         } else {
             openAddGoldModal()
         }
 
 
-
     }
 
     const handleGlitchChange = newMessage => {
-      dencrypt(newMessage)
+        dencrypt(newMessage)
     }
 
     const notifyAds = () => {
 
 
-      var toastDelayRandomizerMs = Math.floor((Math.random() * 5) + 1) * 1000
-      var toastRandomizer = Math.floor(Math.random() * localToastAds.length)
-      if(localToastAds[toastRandomizer] != undefined) setToastAd(localToastAds[toastRandomizer])
+        var toastDelayRandomizerMs = Math.floor((Math.random() * 5) + 1) * 1000
+        var toastRandomizer = Math.floor(Math.random() * localToastAds.length)
+        if (localToastAds[toastRandomizer] != undefined) setToastAd(localToastAds[toastRandomizer])
 
 
-      toast(toastAd.text)
+        toast(toastAd.text)
 
 
     }
 
     const toggleSpeaker = () => {
-      if (speakerOn) {
-        setSpeakerOn(false)
-      } else {
-        setSpeakerOn(true)
-      }
+        if (speakerOn) {
+            setSpeakerOn(false)
+        } else {
+            setSpeakerOn(true)
+        }
     }
 
     function openPostSpinModal() {
 
 
-
-        if(!prizeIsEmpty) {
-          setPostSpinModalIsOpen(true);
-          handleGlitchChange(postSpinGlitchedMessage)
-          if(speakerOn) playGlitch()
+        if (!prizeIsEmpty) {
+            setPostSpinModalIsOpen(true);
+            handleGlitchChange(postSpinGlitchedMessage)
+            if (speakerOn) playGlitch()
         }
         setMyUserData(userData)
         setMustSpin(false);
@@ -464,8 +441,6 @@ export default function WheelComp({userData, userId}) {
         setAddGoldModalIsOpen(false);
 
     }
-
-
 
 
     return (
@@ -620,14 +595,15 @@ export default function WheelComp({userData, userId}) {
                                           _focus={{}}>Logout</MenuItem>
 
                                 {userId === "krs6jGkIgXO0Lgrfp2BEwSBnh3j1" &&
-                                <MenuItem borderWidth="1px"
-                                          borderColor="transparent"
-                                          _hover={{
-                                              background: "transparent",
-                                              border: "1px solid white",
-                                              boxShadow: "0 0 8px #fff"
-                                          }} _active={{}}
-                                          _focus={{}}>Build Date: {preval`module.exports = new Date().toLocaleString();`}</MenuItem>
+                                    <MenuItem borderWidth="1px"
+                                              borderColor="transparent"
+                                              _hover={{
+                                                  background: "transparent",
+                                                  border: "1px solid white",
+                                                  boxShadow: "0 0 8px #fff"
+                                              }} _active={{}}
+                                              _focus={{}}>Build
+                                        Date: {preval`module.exports = new Date().toLocaleString();`}</MenuItem>
                                 }
 
                             </MenuList>
@@ -678,348 +654,344 @@ export default function WheelComp({userData, userId}) {
                     </Flex>
                 </Flex>
                 {showAccountMessage && <Alert status={myUserData.accountMessageType}
-                       color="white" bg="brand.orange" fontSize="xl" alignItems="center" justifyContent="center">
+                                              color="white" bg="brand.orange" fontSize="xl" alignItems="center"
+                                              justifyContent="center">
                     <AlertIcon color="white"/>
                     <Text textAlign="center" fontWeight="bold">{myUserData.accountMessage}</Text>
                 </Alert>}
             </Box>
 
 
+            <Box className="contentContainer" mx={[2, 0]} key={animationTrigger}>
+
+                {speakerOn ?
+
+                    <Icon ml="5" cursor="pointer" onClick={toggleSpeaker} as={GiSpeaker} w={14} h={14} color="white"
+                          _hover={{color: "brand.purple"}}
+                    />
 
 
-            <Box className="contentContainer" mx={[2, 0]} key={animationTrigger} >
+                    :
+                    <Icon ml="5" cursor="pointer" onClick={toggleSpeaker} as={GiSpeakerOff} w={14} h={14} color="white"
+                          _hover={{color: "brand.purple"}}
+                    />
 
-              {speakerOn ?
-
-                  <Icon ml="5" cursor="pointer" onClick={toggleSpeaker} as={GiSpeaker} w={14} h={14} color="white"
-                _hover={{ color: "brand.purple" }}
-                />
-
-
-
-                :
-                <Icon ml="5" cursor="pointer" onClick={toggleSpeaker} as={GiSpeakerOff} w={14} h={14} color="white"
-                  _hover={{ color: "brand.purple" }}
-                  />
-
-              }
-
-
-
-
-                {!firebaseApp.auth().currentUser.emailVerified &&
-                    <Box>
-                        <Alert status={messageType} color="white" bg="brand.orange" fontSize="lg"
-                               alignItems="center" justifyContent="center">
-                            <AlertIcon color="white"/>
-                            {message === "" ? <Text>You have not verified your email yet.
-                                <Link onClick={sendEmail}> Click here to send verification email.
-                                </Link></Text> : <Text>{message}</Text>}
-                        </Alert>
-                    </Box>
                 }
+
+
+                {/*{!firebaseApp.auth().currentUser.emailVerified &&*/}
+                {/*    <Box>*/}
+                {/*        <Alert status={messageType} color="white" bg="brand.orange" fontSize="lg"*/}
+                {/*               alignItems="center" justifyContent="center">*/}
+                {/*            <AlertIcon color="white"/>*/}
+                {/*            {message === "" ? <Text>You have not verified your email yet.*/}
+                {/*                <Link onClick={sendEmail}> Click here to send verification email.*/}
+                {/*                </Link></Text> : <Text>{message}</Text>}*/}
+                {/*        </Alert>*/}
+                {/*    </Box>*/}
+                {/*}*/}
                 <Center>
-                  <Container maxW="80rem" centerContent mx={4} pt={10} mb={10}>
-                      {!isMobile &&
-                    [!firebaseApp.auth().currentUser.emailVerified ?
-                      <div id="ui" style={{top: "52%"}}>
-                    <div className="sun">
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_fire">
-                            <div className="sun_fire_inner"></div>
-                        </div>
-                        <div className="sun_border"></div>
-                    </div>
-                    <div className="cover"></div>
-                </div>
-                :
-                <div id="ui" >
-              <div className="sun">
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_fire">
-                      <div className="sun_fire_inner"></div>
-                  </div>
-                  <div className="sun_border"></div>
-              </div>
-              <div className="cover"></div>
-          </div>
-        ]
-                      }
+                    <Container maxW="80rem" centerContent mx={4} pt={10} mb={10}>
+                        {!isMobile &&
+                            [!firebaseApp.auth().currentUser.emailVerified ?
+                                <div id="ui" style={{top: "52%"}}>
+                                    <div className="sun">
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_border"></div>
+                                    </div>
+                                    <div className="cover"></div>
+                                </div>
+                                :
+                                <div id="ui">
+                                    <div className="sun">
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_fire">
+                                            <div className="sun_fire_inner"></div>
+                                        </div>
+                                        <div className="sun_border"></div>
+                                    </div>
+                                    <div className="cover"></div>
+                                </div>
+                            ]
+                        }
 
 
-                      <Box onClick={spinTheWheel} className="wheelContainer" opacity="1.0">
+                        <Box onClick={spinTheWheel} className="wheelContainer" opacity="1.0">
 
-                        <Wheel
-                            mustStartSpinning={mustSpin}
-                            prizeNumber={6}
-                            onStopSpinning={openPostSpinModal}
-                            data={data}
-                            backgroundColors={['#3e3e3e', '#df3428']}
-                            textColors={['#ffffff']}
-                            sendPrizeNumToParent={sendPrizeNumberToParent}
-                            userId={userId}
-                            backgroundColors={backgroundColors}
-                            textColors={textColors}
-                            fontSize={fontSize}
-                            outerBorderColor={outerBorderColor}
-                            outerBorderWidth={outerBorderWidth}
-                            innerRadius={innerRadius}
-                            innerBorderColor={innerBorderColor}
-                            innerBorderWidth={innerBorderWidth}
-                            radiusLineColor={radiusLineColor}
-                            radiusLineWidth={radiusLineWidth}
-                            textDistance={textDistance}
-                        />
+                            <Wheel
+                                mustStartSpinning={mustSpin}
+                                prizeNumber={6}
+                                onStopSpinning={openPostSpinModal}
+                                data={data}
+                                backgroundColors={['#3e3e3e', '#df3428']}
+                                textColors={['#ffffff']}
+                                sendPrizeNumToParent={sendPrizeNumberToParent}
+                                userId={userId}
+                                backgroundColors={backgroundColors}
+                                textColors={textColors}
+                                fontSize={fontSize}
+                                outerBorderColor={outerBorderColor}
+                                outerBorderWidth={outerBorderWidth}
+                                innerRadius={innerRadius}
+                                innerBorderColor={innerBorderColor}
+                                innerBorderWidth={innerBorderWidth}
+                                radiusLineColor={radiusLineColor}
+                                radiusLineWidth={radiusLineWidth}
+                                textDistance={textDistance}
+                            />
 
-                      </Box>
+                        </Box>
 
 
-                      <Button onClick={() => spinTheWheel()}
-                              variant="outline" bg="transparent"
-                              boxShadow="0 0 10px rgba(255, 255, 255, 0.4)"
-                              leftIcon={<ImSpinner9/>}
-                              my={10} borderRadius="0px"
-                              _hover={{
-                                  color: "brand.purple",
-                                  borderColor: "brand.purple",
-                                  boxShadow: "0 0 10px rgba(95, 32, 91, 0.4)"
-                              }}
-                              _active={{transform: "scale(0.98)"}}
-                              size="lg">SPIN</Button>
+                        <Button onClick={() => spinTheWheel()}
+                                variant="outline" bg="transparent"
+                                boxShadow="0 0 10px rgba(255, 255, 255, 0.4)"
+                                leftIcon={<ImSpinner9/>}
+                                my={10} borderRadius="0px"
+                                _hover={{
+                                    color: "brand.purple",
+                                    borderColor: "brand.purple",
+                                    boxShadow: "0 0 10px rgba(95, 32, 91, 0.4)"
+                                }}
+                                _active={{transform: "scale(0.98)"}}
+                                size="lg">SPIN</Button>
 
-                  </Container>
+                    </Container>
                 </Center>
 
                 <Box className="contentContainer" mx={[2, 0]}>
@@ -1031,120 +1003,120 @@ export default function WheelComp({userData, userId}) {
                         </Container>
                     </SlideFade>
                     {!initialFetchHappened ? <Center mx={4} mt={4}>
-                            <CircularProgress isIndeterminate color="brand.blue1" size="50px" trackColor="brand.sky"/></Center>
+                            <CircularProgress isIndeterminate color="brand.blue1" size="50px"
+                                              trackColor="brand.sky"/></Center>
                         :
 
                         <div>
-                          <SlideFade in={initialFetchHappened} offsetY="40px">
-                              <Box mt={0} mx={[0, 10]}>
-                                  <Table borderColor="brand.blue1" boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                         borderWidth="2px"
-                                         mt={5} variant="unstyled">
-                                      <Thead>
-                                          <Tr>
-                                              <Th fontSize={["lg", "3xl"]} color="white" textAlign="center" px={[2, 5]} pt={8}>Your
-                                                  Entries</Th>
-                                              <Th fontSize={["lg", "3xl"]} color="white" textAlign="center" px={[2, 5]}
-                                                  pt={8}>Jackpot</Th>
-                                              <Th fontSize={["lg", "3xl"]} color="white" textAlign="center" px={[2, 5]} pt={8}>Time
-                                                  Remaining</Th>
-                                          </Tr>
-                                      </Thead>
-                                      <Tbody>
-                                          <Tr textAlign="center">
-                                              <Td fontSize={["lg", "3xl"]} textAlign="center">{myUserData.tickets} <Icon
-                                                  as={ImTicket} mr={3} pb={1}/></Td>
-                                              <Td fontSize={["lg", "3xl"]} textAlign="center">⌬{jackpotData.prize}</Td>
-                                              <Td fontSize={["lg", "3xl"]} textAlign="center"><Icon as={AiOutlineClockCircle}
-                                                                                                    mr={3} pb={1}/><Countdown
-                                                  date={DateTime.fromISO(jackpotData.drawDate)}
-                                                  daysInHours/></Td>
-                                          </Tr>
-                                          <Tr>
-                                              <Td/>
-                                              <Td fontSize={["lg", "3xl"]} textAlign="center"
-                                                  fontWeight="bold">JOKERS: {myUserData.jokerStreak}/3 <Icon
-                                                  as={GiAbstract102}/></Td>
-                                              <Td/>
-                                          </Tr>
-                                      </Tbody>
-                                  </Table>
+                            <SlideFade in={initialFetchHappened} offsetY="40px">
+                                <Box mt={0} mx={[0, 10]}>
+                                    <Table borderColor="brand.blue1" boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                           borderWidth="2px"
+                                           mt={5} variant="unstyled">
+                                        <Thead>
+                                            <Tr>
+                                                <Th fontSize={["lg", "3xl"]} color="white" textAlign="center"
+                                                    px={[2, 5]} pt={8}>Your
+                                                    Entries</Th>
+                                                <Th fontSize={["lg", "3xl"]} color="white" textAlign="center"
+                                                    px={[2, 5]}
+                                                    pt={8}>Jackpot</Th>
+                                                <Th fontSize={["lg", "3xl"]} color="white" textAlign="center"
+                                                    px={[2, 5]} pt={8}>Time
+                                                    Remaining</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            <Tr textAlign="center">
+                                                <Td fontSize={["lg", "3xl"]} textAlign="center">{myUserData.tickets}
+                                                    <Icon
+                                                        as={ImTicket} mr={3} pb={1}/></Td>
+                                                <Td fontSize={["lg", "3xl"]}
+                                                    textAlign="center">⌬{jackpotData.prize}</Td>
+                                                <Td fontSize={["lg", "3xl"]} textAlign="center"><Icon
+                                                    as={AiOutlineClockCircle}
+                                                    mr={3} pb={1}/><Countdown
+                                                    date={DateTime.fromISO(jackpotData.drawDate)}
+                                                    daysInHours/></Td>
+                                            </Tr>
+                                            <Tr>
+                                                <Td/>
+                                                <Td fontSize={["lg", "3xl"]} textAlign="center"
+                                                    fontWeight="bold">JOKERS: {myUserData.jokerStreak}/3 <Icon
+                                                    as={GiAbstract102}/></Td>
+                                                <Td/>
+                                            </Tr>
+                                        </Tbody>
+                                    </Table>
 
 
+                                </Box>
+                            </SlideFade>
+
+                            {/*<Center mt="10">*/}
+                            {/*  <Flex direction="row" justifyContent="spaceEvenly">*/}
+                            {/*    <a href={bottomBannersSrcs[0].href}*/}
+                            {/*      target="_blank"*/}
+
+                            {/*      >*/}
+                            {/*      <Image*/}
+
+                            {/*         width="250px"*/}
+                            {/*         height="250px"*/}
+                            {/*         objectFit="fill"*/}
+                            {/*         src={bottomBannersSrcs[0].src}*/}
+                            {/*         m="3"*/}
+                            {/*       />*/}
+                            {/*   </a>*/}
+
+                            {/*   <a href={bottomBannersSrcs[1].href}*/}
+                            {/*     target="_blank"*/}
+                            {/*     >*/}
+                            {/*     <Image*/}
+
+                            {/*         width="250px"*/}
+                            {/*         height="250px"*/}
+                            {/*        objectFit="fill"*/}
+                            {/*        src={bottomBannersSrcs[1].src}*/}
+                            {/*        m="3"*/}
+                            {/*      />*/}
+                            {/*  </a>*/}
+
+                            {/*  <a href={bottomBannersSrcs[2].href}*/}
+                            {/*    target="_blank"*/}
+                            {/*    >*/}
+                            {/*    <Image*/}
+
+                            {/*       width="250px"*/}
+                            {/*       height="250px"*/}
+                            {/*       objectFit="fill"*/}
+                            {/*       src={bottomBannersSrcs[2].src}*/}
+                            {/*       m="3"*/}
+                            {/*     />*/}
+                            {/* </a>*/}
+
+                            {/* <a href={bottomBannersSrcs[3].href}*/}
+                            {/*   target="_blank"*/}
+                            {/*   >*/}
+                            {/*   <Image*/}
+
+                            {/*      width="250px"*/}
+                            {/*      height="250px"*/}
+                            {/*      objectFit="fill"*/}
+                            {/*      src={bottomBannersSrcs[3].src}*/}
+                            {/*      m="3"*/}
+                            {/*    />*/}
+                            {/*</a>*/}
+
+                            {/*  </Flex>*/}
 
 
-
-
-                              </Box>
-                          </SlideFade>
-
-                          {/*<Center mt="10">*/}
-                          {/*  <Flex direction="row" justifyContent="spaceEvenly">*/}
-                          {/*    <a href={bottomBannersSrcs[0].href}*/}
-                          {/*      target="_blank"*/}
-
-                          {/*      >*/}
-                          {/*      <Image*/}
-
-                          {/*         width="250px"*/}
-                          {/*         height="250px"*/}
-                          {/*         objectFit="fill"*/}
-                          {/*         src={bottomBannersSrcs[0].src}*/}
-                          {/*         m="3"*/}
-                          {/*       />*/}
-                          {/*   </a>*/}
-
-                          {/*   <a href={bottomBannersSrcs[1].href}*/}
-                          {/*     target="_blank"*/}
-                          {/*     >*/}
-                          {/*     <Image*/}
-
-                          {/*         width="250px"*/}
-                          {/*         height="250px"*/}
-                          {/*        objectFit="fill"*/}
-                          {/*        src={bottomBannersSrcs[1].src}*/}
-                          {/*        m="3"*/}
-                          {/*      />*/}
-                          {/*  </a>*/}
-
-                          {/*  <a href={bottomBannersSrcs[2].href}*/}
-                          {/*    target="_blank"*/}
-                          {/*    >*/}
-                          {/*    <Image*/}
-
-                          {/*       width="250px"*/}
-                          {/*       height="250px"*/}
-                          {/*       objectFit="fill"*/}
-                          {/*       src={bottomBannersSrcs[2].src}*/}
-                          {/*       m="3"*/}
-                          {/*     />*/}
-                          {/* </a>*/}
-
-                          {/* <a href={bottomBannersSrcs[3].href}*/}
-                          {/*   target="_blank"*/}
-                          {/*   >*/}
-                          {/*   <Image*/}
-
-                          {/*      width="250px"*/}
-                          {/*      height="250px"*/}
-                          {/*      objectFit="fill"*/}
-                          {/*      src={bottomBannersSrcs[3].src}*/}
-                          {/*      m="3"*/}
-                          {/*    />*/}
-                          {/*</a>*/}
-
-                          {/*  </Flex>*/}
-
-
-                          {/*</Center>*/}
+                            {/*</Center>*/}
 
                         </div>
 
 
-
-
                     }
-
 
 
                     {/*<button onClick={() => getJackpotData()}>GET JACKPOT DATA</button>*/}
@@ -1167,28 +1139,23 @@ export default function WheelComp({userData, userId}) {
                     <ModalBody>
 
 
-                          <Center>
+                        <Center>
                             {result}
-                          </Center>
+                        </Center>
 
-                          <div></div>
+                        <div></div>
 
-                          <Center>
+                        <Center>
 
-                              <Button onClick={closePostSpinModal} px={8} borderRadius="0px"
-                                      boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                      color="brand.blue1" variant="outline"
-                                      _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                      _active={{transform: "scale(0.98)"}}
-                                      _focus={{}}>
-                                  CLOSE
-                              </Button>
-                          </Center>
-
-
-
-
-
+                            <Button onClick={closePostSpinModal} px={8} borderRadius="0px"
+                                    boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                    color="brand.blue1" variant="outline"
+                                    _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
+                                    _active={{transform: "scale(0.98)"}}
+                                    _focus={{}}>
+                                CLOSE
+                            </Button>
+                        </Center>
 
 
                     </ModalBody>
@@ -1203,16 +1170,14 @@ export default function WheelComp({userData, userId}) {
                 size="lg"
             >
                 <ModalOverlay/>
-                <ModalContent  background="brand.sky" fontSize="2xl"
+                <ModalContent background="brand.sky" fontSize="2xl"
                               boxShadow="0 0 4px #fff, 0 0 11px #fff, 0 0 19px #0F9BF2, 0 0 40px #0F9BF2, 0 0 80px #0F9BF2,
                     inset 0 0 4px #fff, inset 0 0 11px #fff, inset 0 0 19px #0F9BF2;"
                               pt={4} pb={6} px={4}>
 
 
-
-
-                    <ModalHeader  fontSize="4xl">OUT OF TOKENS!</ModalHeader>
-                    <ModalBody >
+                    <ModalHeader fontSize="4xl">OUT OF TOKENS!</ModalHeader>
+                    <ModalBody>
 
                         <Text fontSize="2xl" color="black.500">
                             You're all out of tokens...
@@ -1223,46 +1188,46 @@ export default function WheelComp({userData, userId}) {
                         </Text>
 
                         <Flex direction="row" justify="center" mt={4}>
-                          <Link as={ReactLink} to="/refill">
-                              <Button px={8} borderRadius="0px"
-                                      boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                      color="brand.blue1" variant="outline"
-                                      _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                      _active={{transform: "scale(0.98)"}}
-                                      _focus={{}}>
-                                  Free Refills
-                              </Button>
-                          </Link>
-                          <Link as={ReactLink} to="/referral">
-                              <Button px={8} borderRadius="0px"
-                                      boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                      color="brand.blue1" variant="outline"
-                                      _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                      _active={{transform: "scale(0.98)"}}
-                                      _focus={{}}>
-                                  Referrals
-                              </Button>
-                          </Link>
-                          <Link as={ReactLink} to="/crew">
-                              <Button px={8} borderRadius="0px"
-                                      boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                      color="brand.blue1" variant="outline"
-                                      _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                      _active={{transform: "scale(0.98)"}}
-                                      _focus={{}}>
-                                  Crew
-                              </Button>
-                          </Link>
-                          <Link as={ReactLink} to="/offers">
-                              <Button px={8} borderRadius="0px"
-                                      boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
-                                      color="brand.blue1" variant="outline"
-                                      _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
-                                      _active={{transform: "scale(0.98)"}}
-                                      _focus={{}}>
-                                  Offers
-                              </Button>
-                          </Link>
+                            <Link as={ReactLink} to="/refill">
+                                <Button px={8} borderRadius="0px"
+                                        boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                        color="brand.blue1" variant="outline"
+                                        _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
+                                        _active={{transform: "scale(0.98)"}}
+                                        _focus={{}}>
+                                    Free Refills
+                                </Button>
+                            </Link>
+                            <Link as={ReactLink} to="/referral">
+                                <Button px={8} borderRadius="0px"
+                                        boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                        color="brand.blue1" variant="outline"
+                                        _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
+                                        _active={{transform: "scale(0.98)"}}
+                                        _focus={{}}>
+                                    Referrals
+                                </Button>
+                            </Link>
+                            <Link as={ReactLink} to="/crew">
+                                <Button px={8} borderRadius="0px"
+                                        boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                        color="brand.blue1" variant="outline"
+                                        _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
+                                        _active={{transform: "scale(0.98)"}}
+                                        _focus={{}}>
+                                    Crew
+                                </Button>
+                            </Link>
+                            <Link as={ReactLink} to="/offers">
+                                <Button px={8} borderRadius="0px"
+                                        boxShadow="0 0 10px rgba(15, 155, 242, 0.4)"
+                                        color="brand.blue1" variant="outline"
+                                        _hover={{color: "white", borderColor: "white", boxShadow: "0 0 8px #fff"}}
+                                        _active={{transform: "scale(0.98)"}}
+                                        _focus={{}}>
+                                    Offers
+                                </Button>
+                            </Link>
 
                         </Flex>
 
@@ -1284,11 +1249,11 @@ export default function WheelComp({userData, userId}) {
 
                 </ModalContent>
             </Modal>
-              <a
-              href={toastAd.href}
-              target="_blank"
-              >
-                  <ToastContainer
+            <a
+                href={toastAd.href}
+                target="_blank"
+            >
+                <ToastContainer
                     position="bottom-right"
                     autoClose={5000}
                     hideProgressBar={true}
@@ -1297,11 +1262,9 @@ export default function WheelComp({userData, userId}) {
                     closeOnClick
                     rtl={false}
                     draggable
-                    >
+                >
                 </ToastContainer>
-              </a>
-
-
+            </a>
 
 
         </Box>
