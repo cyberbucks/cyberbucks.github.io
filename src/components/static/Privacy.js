@@ -19,8 +19,7 @@ export default function Privacy() {
                     <Box m={5}><Text fontSize="md">
                         CyberHunt ("Company", "we", "us", "our") is committed to protecting your personal information
                         and your right to privacy. If you have any questions or concerns about this privacy notice, or
-                        our practices with regards to your personal information, please contact us at
-                        info@cyberbucks.io.
+                        our practices with regards to your personal information, please contact us.
                     </Text><Text fontSize="md">
                         When you visit our website (the "Website"), and more generally, use any of our services (the
                         "Services", which include the Website), we collect and use as little personal information as

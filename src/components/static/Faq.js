@@ -90,33 +90,6 @@ export default function Faq() {
                             <h2>
                                 <AccordionButton>
                                     <Box flex="1" textAlign="left" fontSize="lg">
-                                        CAN I LOSE MY CASH BALANCE?
-                                    </Box>
-                                    <AccordionIcon/>
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4} fontSize="lg">
-                                We never meddle with your cash balance! You get to keep whatever you earn. You don't
-                                risk any money.
-                            </AccordionPanel>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton>
-                                    <Box flex="1" textAlign="left" fontSize="lg">
-                                        WHAT ARE THE WHEEL OF FORTUNE PAYOUTS?
-                                    </Box>
-                                    <AccordionIcon/>
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4} fontSize="lg">
-                                You can see our offers in the wheel in the About section.
-                            </AccordionPanel>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton>
-                                    <Box flex="1" textAlign="left" fontSize="lg">
                                         HOW DOES THE WINNING ALGORITHM WORK?
                                     </Box>
                                     <AccordionIcon/>
@@ -158,20 +131,6 @@ export default function Faq() {
                         {/*        for you to reach the payment!*/}
                         {/*    </AccordionPanel>*/}
                         {/*</AccordionItem>*/}
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton>
-                                    <Box flex="1" textAlign="left" fontSize="lg">
-                                        HOW DO YOU MAKE MONEY?
-                                    </Box>
-                                    <AccordionIcon/>
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4} fontSize="lg">
-                                We make money by showing advertisements and sponsored messages. These contribute
-                                directly to the prize pool and help you earn more.
-                            </AccordionPanel>
-                        </AccordionItem>
                         <AccordionItem>
                             <h2>
                                 <AccordionButton>
@@ -344,8 +303,7 @@ export default function Faq() {
                             </h2>
                             <AccordionPanel pb={4} fontSize="lg">
                                 Yes, we are always open to partnerships with various content creators. If you think you
-                                have an audience who would be interested in CYBERBUCKS, drop us a line via
-                                info@cyberbucks.io.
+                                have an audience who would be interested in CYBERBUCKS, drop us a line.
                             </AccordionPanel>
                         </AccordionItem>
                     </Accordion>

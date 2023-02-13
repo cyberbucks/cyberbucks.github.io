@@ -64,7 +64,7 @@ export default function Footer() {
                 </Center>
             </Flex>
             <Center mt={5} mb={5} mx={[2, 0]}>
-                <Text wordBreak="break-word">CYBERBUCKS is a free to play gaming service operating under domain cyberbucks.io
+                <Text wordBreak="break-word">CYBERBUCKS is a free to play gaming service operating under domain cyberbucks.github.io
                     . All policies regarding management, rewards, payment and support services related to the operation of the website
                     are disclosed in the Terms of Service section. This service does not require and does not accept any
                     form of monetary deposit. This service is not a casino or a gambling platform. This service requires

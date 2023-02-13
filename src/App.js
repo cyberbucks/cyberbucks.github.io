@@ -39,8 +39,6 @@ import NotFound from "./components/static/NotFound";
 import {printText} from "./devUtilities";
 import CookieConsent from "react-cookie-consent";
 import FAuth from "./components/FAuth";
-import Sweepstakes from "./components/Sweepstakes";
-import SocialMediaEvent from "./components/SocialMediaEvent";
 import {AiFillWarning} from "react-icons/all";
 
 
@@ -338,26 +336,6 @@ function App() {
 
                             <Route path="/adminon">
                                 <AdminPanel userId={myUid}/>
-                            </Route>
-
-                            <Route path="/sweepstakes">
-                                <Box className="backgroundContainer">
-                                    <Box width={["100%", "70%"]} margin="auto">
-                                        <Header userData={myUserData} uid={myUid}/>
-                                        <Sweepstakes userData={myUserData} userId={myUid}/>
-                                        <Footer/>
-                                    </Box>
-                                </Box>
-                            </Route>
-
-                            <Route path="/event">
-                                <Box className="backgroundContainer">
-                                    <Box width={["100%", "70%"]} margin="auto">
-                                        <Header userData={myUserData} uid={myUid}/>
-                                        <SocialMediaEvent/>
-                                        <Footer/>
-                                    </Box>
-                                </Box>
                             </Route>
 
                             {/* Authentication is not needed for the routes below */}
