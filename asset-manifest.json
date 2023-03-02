@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.56accefd.chunk.css",
-    "main.js": "/static/js/main.f43d69d0.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.e2af63ef.js",
+    "main.css": "/static/css/main.ab67c220.chunk.css",
+    "main.js": "/static/js/main.70fba851.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.3aaabae6.js",
     "static/css/2.d66232d8.chunk.css": "/static/css/2.d66232d8.chunk.css",
-    "static/js/2.3c340e96.chunk.js": "/static/js/2.3c340e96.chunk.js",
-    "static/js/3.a91c3a83.chunk.js": "/static/js/3.a91c3a83.chunk.js",
-    "static/js/4.9b16671a.chunk.js": "/static/js/4.9b16671a.chunk.js",
+    "static/js/2.ad9681a8.chunk.js": "/static/js/2.ad9681a8.chunk.js",
+    "static/js/3.a8f7e44f.chunk.js": "/static/js/3.a8f7e44f.chunk.js",
+    "static/js/4.727d3e39.chunk.js": "/static/js/4.727d3e39.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.3c340e96.chunk.js.LICENSE.txt": "/static/js/2.3c340e96.chunk.js.LICENSE.txt",
-    "static/js/3.a91c3a83.chunk.js.LICENSE.txt": "/static/js/3.a91c3a83.chunk.js.LICENSE.txt",
+    "static/js/2.ad9681a8.chunk.js.LICENSE.txt": "/static/js/2.ad9681a8.chunk.js.LICENSE.txt",
+    "static/js/3.a8f7e44f.chunk.js.LICENSE.txt": "/static/js/3.a8f7e44f.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/BlenderPro-Bold.fa2722c3.woff2",
     "static/media/App.css": "/static/media/cyberpunk-6487723.cfc80648.jpg",
     "static/media/glitchEffect.94bd1793.mp3": "/static/media/glitchEffect.94bd1793.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.e2af63ef.js",
+    "static/js/runtime-main.3aaabae6.js",
     "static/css/2.d66232d8.chunk.css",
-    "static/js/2.3c340e96.chunk.js",
-    "static/css/main.56accefd.chunk.css",
-    "static/js/main.f43d69d0.chunk.js"
+    "static/js/2.ad9681a8.chunk.js",
+    "static/css/main.ab67c220.chunk.css",
+    "static/js/main.70fba851.chunk.js"
   ]
 }
