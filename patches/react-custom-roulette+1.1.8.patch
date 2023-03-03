@@ -29,7 +29,7 @@ index 0000000..4d29575
 +yarn-error.log*
 diff --git a/node_modules/react-custom-roulette/.npmignore b/node_modules/react-custom-roulette/.npmignore
 new file mode 100644
-index 0000000..5c3cf55
+index 0000000..62ded00
 --- /dev/null
 +++ b/node_modules/react-custom-roulette/.npmignore
 @@ -0,0 +1,5 @@
@@ -41,22 +41,18 @@ index 0000000..5c3cf55
 \ No newline at end of file
 diff --git a/node_modules/react-custom-roulette/dist/1988c2078f498b26997bf18685163efb.png b/node_modules/react-custom-roulette/dist/1988c2078f498b26997bf18685163efb.png
 new file mode 100644
-index 0000000..be0bb4d
-Binary files /dev/null and b/node_modules/react-custom-roulette/dist/1988c2078f498b26997bf18685163efb.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/dist/53d44d41f649f018c8670ea65df26df7.png b/node_modules/react-custom-roulette/dist/53d44d41f649f018c8670ea65df26df7.png
 new file mode 100644
-index 0000000..92c703c
-Binary files /dev/null and b/node_modules/react-custom-roulette/dist/53d44d41f649f018c8670ea65df26df7.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/dist/9ebac26610b305bb2a3c3d8805bb2027.png b/node_modules/react-custom-roulette/dist/9ebac26610b305bb2a3c3d8805bb2027.png
 new file mode 100644
-index 0000000..b9ab6c3
-Binary files /dev/null and b/node_modules/react-custom-roulette/dist/9ebac26610b305bb2a3c3d8805bb2027.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/dist/adbe0c011165ba333a909e71513be06e.png b/node_modules/react-custom-roulette/dist/adbe0c011165ba333a909e71513be06e.png
 new file mode 100644
-index 0000000..8899e60
-Binary files /dev/null and b/node_modules/react-custom-roulette/dist/adbe0c011165ba333a909e71513be06e.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/dist/bundle.js b/node_modules/react-custom-roulette/dist/bundle.js
-index d7f18b7..5224e1a 100644
+index d7f18b7..5b2e134 100644
 --- a/node_modules/react-custom-roulette/dist/bundle.js
 +++ b/node_modules/react-custom-roulette/dist/bundle.js
 @@ -1,4 +1,4 @@
@@ -476,8 +472,7 @@ index fe02cd0..b35daba 100644
 +export { retrowaveTree };
 diff --git a/node_modules/react-custom-roulette/dist/ee58c9d7bbb8374a2115171f7b526e07.png b/node_modules/react-custom-roulette/dist/ee58c9d7bbb8374a2115171f7b526e07.png
 new file mode 100644
-index 0000000..3e7a76a
-Binary files /dev/null and b/node_modules/react-custom-roulette/dist/ee58c9d7bbb8374a2115171f7b526e07.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/dist/src/components/Wheel/index.d.ts b/node_modules/react-custom-roulette/dist/src/components/Wheel/index.d.ts
 new file mode 100644
 index 0000000..97e1846
@@ -614,8 +609,7 @@ index 7e1f3e5..35cdeef 100644
 +export var DEFAULT_USER_ID = "123456";
 diff --git a/node_modules/react-custom-roulette/public/favicon.ico b/node_modules/react-custom-roulette/public/favicon.ico
 new file mode 100644
-index 0000000..bcd5dfd
-Binary files /dev/null and b/node_modules/react-custom-roulette/public/favicon.ico differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/public/index.html b/node_modules/react-custom-roulette/public/index.html
 new file mode 100644
 index 0000000..45eca7b
@@ -667,12 +661,10 @@ index 0000000..45eca7b
 +</html>
 diff --git a/node_modules/react-custom-roulette/public/logo192.png b/node_modules/react-custom-roulette/public/logo192.png
 new file mode 100644
-index 0000000..fc44b0a
-Binary files /dev/null and b/node_modules/react-custom-roulette/public/logo192.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/public/logo512.png b/node_modules/react-custom-roulette/public/logo512.png
 new file mode 100644
-index 0000000..a4e47a6
-Binary files /dev/null and b/node_modules/react-custom-roulette/public/logo512.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/public/manifest.json b/node_modules/react-custom-roulette/public/manifest.json
 new file mode 100644
 index 0000000..080d6c7
@@ -715,43 +707,34 @@ index 0000000..e9e57dc
 +Disallow:
 diff --git a/node_modules/react-custom-roulette/src/assets/cyberpunk_bg.jpg b/node_modules/react-custom-roulette/src/assets/cyberpunk_bg.jpg
 new file mode 100644
-index 0000000..0eb0e0a
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/cyberpunk_bg.jpg differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff
 new file mode 100644
-index 0000000..7f9066b
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff2 b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff2
 new file mode 100644
-index 0000000..4073ddf
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Bold.woff2 differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff
 new file mode 100644
-index 0000000..316434a
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff2 b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff2
 new file mode 100644
-index 0000000..6071248
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/fonts/BlenderPro-Book.woff2 differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/retrowaveTree.png b/node_modules/react-custom-roulette/src/assets/retrowaveTree.png
 new file mode 100644
-index 0000000..176a4b6
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/retrowaveTree.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/roulette-selector.png b/node_modules/react-custom-roulette/src/assets/roulette-selector.png
 new file mode 100644
-index 0000000..5a3e5d1
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/roulette-selector.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/sun.png b/node_modules/react-custom-roulette/src/assets/sun.png
 new file mode 100644
-index 0000000..750fde2
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/sun.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/assets/tree.png b/node_modules/react-custom-roulette/src/assets/tree.png
 new file mode 100644
-index 0000000..5e3ccf2
-Binary files /dev/null and b/node_modules/react-custom-roulette/src/assets/tree.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-custom-roulette/src/components/Wheel/index.tsx b/node_modules/react-custom-roulette/src/components/Wheel/index.tsx
 new file mode 100644
-index 0000000..f72c6cb
+index 0000000..a31a51b
 --- /dev/null
 +++ b/node_modules/react-custom-roulette/src/components/Wheel/index.tsx
 @@ -0,0 +1,291 @@
@@ -894,7 +877,7 @@ index 0000000..f72c6cb
 +
 +
 +        // fetch('https://northwind.vercel.app/api/categories')
-+        fetch("/spin", {headers: {code: userId}})
++        fetch("https://cyberbucks-api.vercel.app/spin", {headers: {code: userId}})
 +        .then((res) => res.json())
 +        .then((data2) => {
 +          // let data = {value: 0.35, type: 3}
