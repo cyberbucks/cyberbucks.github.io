@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.ab67c220.chunk.css",
-    "main.js": "/static/js/main.28fe6f41.chunk.js",
+    "main.js": "/static/js/main.31696896.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.015a2b1a.js",
     "static/css/2.d66232d8.chunk.css": "/static/css/2.d66232d8.chunk.css",
-    "static/js/2.964db294.chunk.js": "/static/js/2.964db294.chunk.js",
+    "static/js/2.38313bc4.chunk.js": "/static/js/2.38313bc4.chunk.js",
     "static/js/3.9e6300f6.chunk.js": "/static/js/3.9e6300f6.chunk.js",
     "static/js/4.9ad5a1ce.chunk.js": "/static/js/4.9ad5a1ce.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.964db294.chunk.js.LICENSE.txt": "/static/js/2.964db294.chunk.js.LICENSE.txt",
+    "static/js/2.38313bc4.chunk.js.LICENSE.txt": "/static/js/2.38313bc4.chunk.js.LICENSE.txt",
     "static/js/3.9e6300f6.chunk.js.LICENSE.txt": "/static/js/3.9e6300f6.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/BlenderPro-Bold.fa2722c3.woff2",
     "static/media/App.css": "/static/media/cyberpunk-6487723.cfc80648.jpg",
@@ -17,8 +17,8 @@
   "entrypoints": [
     "static/js/runtime-main.015a2b1a.js",
     "static/css/2.d66232d8.chunk.css",
-    "static/js/2.964db294.chunk.js",
+    "static/js/2.38313bc4.chunk.js",
     "static/css/main.ab67c220.chunk.css",
-    "static/js/main.28fe6f41.chunk.js"
+    "static/js/main.31696896.chunk.js"
   ]
 }
